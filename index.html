@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zeo露營準備清單 V3</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:20px;
+    background:#edf3f8;
+    font-family:"Microsoft JhengHei";
+}
+
+h1{
+    text-align:center;
+    color:#2c6e49;
+}
+
+.trip-box{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.trip-box input{
+    width:450px;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+.container{
+    display:flex;
+    gap:20px;
+}
+
+.left,
+.middle,
+.right{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.left{
+    width:28%;
+}
+
+.middle{
+    width:36%;
+}
+
+.right{
+    width:36%;
+}
+
+.left img{
+    width:100%;
+    border-radius:10px;
+}
+
+details{
+    margin-bottom:15px;
+}
+
+summary{
+    font-size:22px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#1d3557;
+}
+
+label{
+    display:block;
+    margin:8px 0;
+}
+
+input[type=text]{
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    width:65%;
+}
+
+button{
+    background:#2c6e49;
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+button:hover{
+    background:#1f5136;
+}
+
+.counter{
+    color:red;
+    font-size:24px;
+    font-weight:bold;
+}
+
+#bag{
+    text-align:center;
+    font-size:90px;
+    margin-bottom:10px;
+}
+
+textarea{
+    width:100%;
+    border-radius:8px;
+    padding:10px;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🏕️ Zeo 露營準備清單</h1>
+
+<div class="trip-box">
+
+<input
+type="text"
+id="tripName"
+placeholder="輸入行程名稱，例如：武陵農場二天一夜">
+
+</div>
+
+<div class="container">
+
+<!-- 左側照片 -->
+
+<div class="left">
+
+<h2>📷 露營照片</h2>
+
+<img src="waterWood.JPG">
+
+</div>
+
+<!-- 中間 -->
+
+<div class="middle">
+
+<details open>
+
+<summary>🏕️ 過夜裝備</summary>
+
+<div id="sleepGear">
+
+<label><input type="checkbox" value="帳篷"> 帳篷</label>
+<label><input type="checkbox" value="天幕"> 天幕</label>
+<label><input type="checkbox" value="睡袋"> 睡袋</label>
+<label><input type="checkbox" value="充氣床墊"> 充氣床墊</label>
+<label><input type="checkbox" value="枕頭"> 枕頭</label>
+
+</div>
+
+<input type="text" id="sleepInput" placeholder="新增裝備">
+
+<button onclick="addItem('sleepInput','sleepGear')">
+新增
+</button>
+
+</details>
+
+<details>
+
+<summary>🎒 行動裝備</summary>
+
+<div id="moveGear">
+
+<label><input type="checkbox" value="背包"> 背包</label>
+<label><input type="checkbox" value="頭燈"> 頭燈</label>
+<label><input type="checkbox" value="手電筒"> 手電筒</label>
+<label><input type="checkbox" value="行動電源"> 行動電源</label>
+
+</div>
+
+<input type="text" id="moveInput" placeholder="新增裝備">
+
+<button onclick="addItem('moveInput','moveGear')">
+新增
+</button>
+
+</details>
+
+<details>
+
+<summary>🩹 急救裝備</summary>
+
+<div id="medicalGear">
+
+<label><input type="checkbox" value="OK蹦"> OK蹦</label>
+<label><input type="checkbox" value="優碘"> 優碘</label>
+<label><input type="checkbox" value="酒精棉片"> 酒精棉片</label>
+<label><input type="checkbox" value="止痛藥"> 止痛藥</label>
+<label><input type="checkbox" value="腸胃藥"> 腸胃藥</label>
+<label><input type="checkbox" value="防蚊液"> 防蚊液</label>
+
+</div>
+
+<input type="text" id="medicalInput" placeholder="新增裝備">
+
+<button onclick="addItem('medicalInput','medicalGear')">
+新增
+</button>
+
+</details>
+
+<details>
+
+<summary>🍖 食材清單</summary>
+
+<div id="foodGear">
+
+<label><input type="checkbox" value="牛肉"> 牛肉</label>
+<label><input type="checkbox" value="豬肉"> 豬肉</label>
+<label><input type="checkbox" value="雞肉"> 雞肉</label>
+<label><input type="checkbox" value="泡麵"> 泡麵</label>
+<label><input type="checkbox" value="礦泉水"> 礦泉水</label>
+<label><input type="checkbox" value="飲料"> 飲料</label>
+<label><input type="checkbox" value="木炭"> 木炭</label>
+
+</div>
+
+<input type="text" id="foodInput" placeholder="新增食材">
+
+<button onclick="addItem('foodInput','foodGear')">
+新增
+</button>
+
+</details>
+
+<hr>
+
+<button onclick="addToList()">
+✅ 加入準備清單
+</button>
+
+<button onclick="exportText()">
+📋 輸出文字
+</button>
+
+<button onclick="copyText()">
+📄 一鍵複製
+</button>
+
+<button onclick="clearList()">
+❌ 清空
+</button>
+
+</div>
+
+<!-- 右側 -->
+
+<div class="right">
+
+<h2 id="displayTrip">
+🎒 我的露營背包
+</h2>
+
+<div id="bag">
+🎒
+</div>
+
+<p>
+
+總件數：
+
+<span id="count" class="counter">
+0
+</span>
+
+</p>
+
+<ul id="result"></ul>
+
+<hr>
+
+<h3>📋 可複製文字</h3>
+
+<textarea
+id="outputText"
+rows="15"
+placeholder="按下輸出文字後顯示於此">
+</textarea>
+
+</div>
+
+</div>
+
+<script>
+
+function addItem(inputId,containerId)
+{
+    let input =
+    document.getElementById(inputId);
+
+    let value =
+    input.value.trim();
+
+    if(value==="")
+    {
+        return;
+    }
+
+    let container =
+    document.getElementById(containerId);
+
+    container.innerHTML +=
+    `<label>
+    <input type="checkbox" value="${value}">
+    ${value}
+    </label>`;
+
+    input.value = "";
+}
+
+function addToList()
+{
+    let tripName =
+    document.getElementById(
+    "tripName"
+    ).value.trim();
+
+    if(tripName!="")
+    {
+        document.getElementById(
+        "displayTrip"
+        ).innerHTML =
+        "🏕️ " + tripName;
+    }
+
+    let result =
+    document.getElementById("result");
+
+    let count =
+    document.getElementById("count");
+
+    result.innerHTML = "";
+
+    let checkedItems =
+    document.querySelectorAll(
+    "input[type='checkbox']:checked"
+    );
+
+    checkedItems.forEach(function(item)
+    {
+        result.innerHTML +=
+        "<li>✅ " +
+        item.value +
+        "</li>";
+    });
+
+    count.innerHTML =
+    checkedItems.length;
+
+    if(checkedItems.length > 0)
+    {
+        document.getElementById(
+        "bag"
+        ).innerHTML = "🧳";
+    }
+}
+
+function exportText()
+{
+    let tripName =
+    document.getElementById(
+    "tripName"
+    ).value.trim();
+
+    let checkedItems =
+    document.querySelectorAll(
+    "input[type='checkbox']:checked"
+    );
+
+    let text = "";
+
+    if(tripName !== "")
+    {
+        text += "🏕️ " + tripName + "\n\n";
+    }
+    else
+    {
+        text += "🏕️ Zeo露營準備清單\n\n";
+    }
+
+    checkedItems.forEach(function(item)
+    {
+        text +=
+        "✅ " +
+        item.value +
+        "\n";
+    });
+
+    document.getElementById(
+    "outputText"
+    ).value = text;
+}
+
+function copyText()
+{
+    let text =
+    document.getElementById(
+    "outputText"
+    );
+
+    navigator.clipboard.writeText(
+    text.value
+    );
+
+    alert("已複製到剪貼簿");
+}
+
+function clearList()
+{
+    let checks =
+    document.querySelectorAll(
+    "input[type='checkbox']"
+    );
+
+    checks.forEach(function(item)
+    {
+        item.checked = false;
+    });
+
+    document.getElementById("result").innerHTML = "";
+
+    document.getElementById("count").innerHTML = "0";
+
+    document.getElementById("outputText").value = "";
+
+    document.getElementById("tripName").value = "";
+
+    document.getElementById(
+    "displayTrip"
+    ).innerHTML =
+    "🎒 我的露營背包";
+
+    document.getElementById(
+    "bag"
+    ).innerHTML =
+    "🎒";
+}
+
+</script>
+
+</body>
+
+</html>
